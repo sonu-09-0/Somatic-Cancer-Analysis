@@ -1,0 +1,111 @@
+
+# Raw sequencing data
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+
+# Alignment files
+*.sam
+*.bam
+*.bai
+*.cram
+*.crai
+
+# Reference genomes
+*.fa
+*.fasta
+*.fna
+*.fa.gz
+*.fasta.gz
+*.fna.gz
+resources/reference/*
+!resources/reference/.gitkeep
+
+# Index files
+*.fai
+*.dict
+*.bwt
+*.pac
+*.ann
+*.amb
+*.sa
+
+# Variant files (large)
+*.vcf
+*.vcf.gz
+*.vcf.gz.tbi
+*.bcf
+
+# Known variant databases (too large)
+resources/known_sites/*
+!resources/known_sites/.gitkeep
+
+results/
+logs/
+benchmarks/
+.snakemake/
+
+# Temporary Files
+*.tmp
+*.temp
+*.log
+nohup.out
+
+# Python
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+genomics_env/
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# R
+
+.Rhistory
+.RData
+.Rproj.user
+
+# Operating System
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# IDE / Editors
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Vim
+*.swp
+*.swo
+
+
+# Keep directory structure
+!.gitkeep
+
+# Keep small test data
+!tests/data/*.vcf
+!tests/data/*.bed
+
+
+Miniconda3-latest-Linux-x86_64.sh
+Miniconda3-latest-Linux-x86_64.sh*
+Miniconda3*
