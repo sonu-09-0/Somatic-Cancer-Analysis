@@ -1,0 +1,77 @@
+"""
+Cancer Somatic Variant Calling Pipeline
+Main Snakefile - Orchestrates the entire workflow
+
+Author: Your Name
+Version: 1.0.0
+"""
+
+
+# Configuration
+
+configfile: "config/config.yaml"
+
+# Import sample information
+import pandas as pd
+samples_df = pd.read_table("config/samples.tsv").set_index("sample_id", drop=False)
+
+# Rule priority (resolve ambiguities)
+ruleorder: mark_duplicates > index_sorted_bam
+
+# Define sample lists
+SAMPLES = samples_df["sample_id"].tolist()
+TUMOR = config["samples"]["tumor"]
+NORMAL = config["samples"]["normal"]
+# Target Rule (What We Want to Produce)
+
+rule all:
+    """
+    Final target - all desired outputs
+    Snakemake works backwards from here!
+    """
+    input:
+        # QC reports
+        expand("{qc}/multiqc_report.html", qc=config["output"]["qc"]),
+        
+        # Final BAM files
+        expand("{aln}/{sample}_final.bam", 
+               aln=config["output"]["alignment"], 
+               sample=SAMPLES),
+        
+        # Somatic variants
+        "{variants}/somatic_filtered.vcf.gz".format(
+            variants=config["output"]["variants"]
+        ),
+        
+        # Summary report
+        "{reports}/analysis_summary.txt".format(
+            reports=config["output"]["reports"]
+        )
+
+
+# Include Rule Modules
+
+include: "rules/qc.smk"
+include: "rules/alignment.smk"
+include: "rules/preprocessing.smk"
+include: "rules/calling.smk"
+include: "rules/reporting.smk"
+
+
+# Workflow Completion Message
+
+onsuccess:
+    print("="*60)
+    print("PIPELINE COMPLETED SUCCESSFULLY!")
+    print("="*60)
+    print("Results available in:")
+    print(f"  - QC: {config['output']['qc']}")
+    print(f"  - Variants: {config['output']['variants']}")
+    print(f"  - Reports: {config['output']['reports']}")
+    print("="*60)
+
+onerror:
+    print("="*60)
+    print("PIPELINE FAILED!")
+    print("Check the logs for error details")
+    print("="*60)

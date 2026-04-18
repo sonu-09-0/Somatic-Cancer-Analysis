@@ -1,0 +1,7 @@
+touch resources/reference/.gitkeep
+touch resources/known_sites/.gitkeep
+touch workflow/rules/.gitkeep
+touch workflow/envs/.gitkeep
+touch scripts/.gitkeep
+touch tests/data/.gitkeep
+touch docs/.gitkeep

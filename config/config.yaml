@@ -1,0 +1,80 @@
+# Cancer Somatic Pipeline Configuration
+
+
+# Project Information
+
+project:
+  name: "Cancer Somatic Variant Analysis"
+  description: "Tumor-normal paired analysis, chromosome 17"
+  analyst: "Your Name"
+  date: "2026-04-15"
+
+
+# Sample Information
+
+samples:
+  tumor: "tumor"
+  normal: "normal"
+
+
+# Reference Files
+
+reference:
+  genome: "resources/reference/chr17.fa"
+  known_sites:
+    dbsnp: "resources/known_sites/dbsnp_chr17.vcf.gz"
+
+
+# Pipeline Parameters
+
+params:
+  # Quality Control
+  fastqc:
+    threads: 2
+
+  # Alignment
+  bwa:
+    threads: 8
+    read_group: "@RG\\tID:{sample}\\tSM:{sample}\\tPL:ILLUMINA\\tLB:lib1\\tPU:unit1"
+
+  # SAMtools
+  samtools:
+    threads: 4
+    memory: "4G"
+
+  # GATK MarkDuplicates
+  markdup:
+    java_opts: "-Xmx4g"
+
+  # GATK BQSR
+  bqsr:
+    java_opts: "-Xmx4g"
+
+  # Mutect2 Variant Calling
+  mutect2:
+    java_opts: "-Xmx8g"
+    threads: 4
+    min_base_quality: 20
+    pcr_indel_model: "CONSERVATIVE"
+
+  # Variant Filtering
+  filter:
+    min_qual: 30
+    min_depth: 10
+    max_population_af: 0.001  # Remove common variants (>0.1% in population)
+
+
+
+# Output Directories
+output:
+  qc: "results/qc"
+  alignment: "results/alignment"
+  variants: "results/variants"
+  annotation: "results/annotation"
+  reports: "results/reports"
+
+# Resource Limits
+
+resources:
+  default_threads: 4
+  default_mem_mb: 4000

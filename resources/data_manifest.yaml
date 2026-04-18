@@ -1,0 +1,70 @@
+# Data Manifest
+# Tracks all downloaded resources for reproducibility
+
+project:
+  name: "Cancer Somatic Variant Pipeline"
+  organism: "Homo sapiens"
+  reference_genome: "GRCh38/hg38"
+  target_region: "chr17"
+samples:
+  tumor:
+    sample_id: "TUMOR_001"
+    description: "Colorectal cancer tumor sample, chromosome 17"
+    source: "Public dataset"
+    sequencing:
+      platform: "Illumina"
+      strategy: "WGS"
+      library: "Paired-end"
+      read_length: "150bp"
+    files:
+      r1: "data/raw/tumor_R1.fastq.gz"
+      r2: "data/raw/tumor_R2.fastq.gz"
+    download_date: ""
+    md5:
+      r1: ""
+      r2: ""
+  normal:
+    sample_id: "NORMAL_001"
+    description: "Matched normal blood sample, chromosome 17"
+    source: "Public dataset"
+    sequencing:
+      platform: "Illumina"
+      strategy: "WGS"
+      library: "Paired-end"
+      read_length: "150bp"
+    files:
+      r1: "data/raw/normal_R1.fastq.gz"
+      r2: "data/raw/normal_R2.fastq.gz"
+    download_date: ""
+    md5:
+      r1: ""
+      r2: ""
+
+reference:
+  genome:
+    name: "GRCh38 Chromosome 17"
+    source: "UCSC Genome Browser"
+    version: "hg38"
+    file: "resources/reference/chr17.fa"
+    url: ""
+    download_date: ""
+    md5: ""
+databases:
+  dbsnp:
+    description: "dbSNP common variants (chr17)"
+    version: "b155"
+    file: "resources/known_sites/dbsnp_chr17.vcf.gz"
+    url: ""
+    download_date: ""
+  cosmic:
+    description: "COSMIC cancer mutations (chr17)"
+    version: "v98"
+    file: "resources/known_sites/cosmic_chr17.vcf.gz"
+    url: ""
+    download_date: ""
+    clinvar:
+    description: "ClinVar clinical variants (chr17)"
+    version: "latest"
+    file: "resources/known_sites/clinvar_chr17.vcf.gz"
+    url: ""
+    download_date: ""
